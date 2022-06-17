@@ -44,6 +44,7 @@ class WinAddProduct(QDialog, Ui_Dialog_Add_Product):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.pushButton.clicked.connect(self.accept)
 
 
 class WinDelPokup(QDialog, Ui_Dialog_Del_Pokup):
@@ -80,7 +81,11 @@ class WindowProduct(QDialog, Ui_Dialog_Product):
 
     def open_add_product(self):
         self.add_prod = WinAddProduct()
-        self.add_prod.show()
+        if self.add_prod.exec() == 1:
+            text_from_form = self.add_prod.lineEdit_2.text()
+            cursor.execute('INSERT INTO Товары (Наименование, Стоимость) VALUES (?,?)', ('test', '10'))
+            db.commit()
+        self.load_table_product()
 
     def open_del_product(self):
         self.del_product = WinDelProduct()
@@ -93,6 +98,7 @@ class WindowProduct(QDialog, Ui_Dialog_Product):
 
     def load_table_product(self):
         sqlquery = f'SELECT Наименование, `Поставщики`.`ФИО`, `Покупатели`.`ФИО`, id_склада, Стоимость, `Товары`.`Статус`  FROM `Товары`, `Поставщики`, `Покупатели`, `Склады` WHERE `Товары`.`id_поставщика` = `Поставщики`.`id` and `Товары`.`id_покупателя` = `Покупатели`.`id` and `Товары`.`id_склада` = `Склады`.`id`'
+        self.tableWidget.clear()
         self.tableWidget.setRowCount(len(self.load_len_product()))
         tablerow = 0
         for row in cursor.execute(sqlquery):
@@ -103,6 +109,7 @@ class WindowProduct(QDialog, Ui_Dialog_Product):
             self.tableWidget.setItem(tablerow, 4, QTableWidgetItem(row[4]))
             self.tableWidget.setItem(tablerow, 5, QTableWidgetItem(row[5]))
             tablerow += 1
+        self.update()
 
 
 class WindowPokup(QDialog, Ui_Dialog_Pokup):
