@@ -1,6 +1,6 @@
 import sqlite3
 
-from PyQt5.QtWidgets import QDialog, QTableWidgetItem
+from PyQt5.QtWidgets import QDialog, QTableWidgetItem, QMessageBox
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
 from add_pokup import Ui_Dialog_Add_Pokup
@@ -21,6 +21,9 @@ db = sqlite3.connect('бд.db')
 cursor = db.cursor()
 
 
+
+
+
 class WinDelStocks(QDialog, Ui_Dialog_Del_Stocks):
     def __init__(self):
         super().__init__()
@@ -31,6 +34,30 @@ class WinAddStocks(QDialog, Ui_Dialog_Add_Stocks):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.btn_add.clicked.connect(self.add_data)
+
+
+    def add_data(self):
+        adress = self.line_add_adress.text()
+        vmestimost = self.line_add_vmestimost.text()
+        status = self.line_add_status.text()
+        zag = self.line_add_zagruzh.text()
+
+        if len(adress) == 0 or len(vmestimost) == 0 or len(status) == 0 or len(zag) == 0:
+            msg = QMessageBox()
+            msg.setWindowTitle('Внимание')
+            msg.setText('Все поля должны быть заполнены')
+            msg.setIcon(QMessageBox.Warning)
+            msg.exec_()
+            return
+
+        cursor.execute(
+            f"INSERT INTO Склады (Адрес, Вместимость, Статус, Загруженность) VALUES ('{adress}', {vmestimost}, '{status}', {zag})")
+        msg = QMessageBox()
+        msg.setWindowTitle('Внимание')
+        msg.setText('Данные успешно внесены!')
+        msg.exec_()
+
 
 
 
@@ -44,6 +71,30 @@ class WinAddProduct(QDialog, Ui_Dialog_Add_Product):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.pushButton.clicked.connect(self.add_row)
+
+
+    def add_row(self):
+        name = self.lineEdit_2.text()
+        post = self.lineEdit_3.text()
+        pokup = self.lineEdit_4.text()
+        stock = self.lineEdit_5.text()
+        price = self.lineEdit_6.text()
+        status = self.lineEdit_7.text()
+
+        if len(name) == 0 or len(post) == 0 or len(pokup) == 0 or len(stock) == 0 or len(price) == 0 or len(status) == 0:
+            msg = QMessageBox()
+            msg.setWindowTitle('Внимание')
+            msg.setText('Все поля должны быть заполнены')
+            msg.setIcon(QMessageBox.Warning)
+            msg.exec_()
+            return
+
+        cursor.execute(f"INSERT INTO Товары (Наименование, id_поставщика, id_покупателя, id_склада, Стоимость, Статус) VALUES ('{name}', {post}, {pokup}, {stock}, '{price}', '{status}')")
+        msg = QMessageBox()
+        msg.setWindowTitle('Внимание')
+        msg.setText('Данные успешно внесены!')
+        msg.exec_()
 
 
 class WinDelPokup(QDialog, Ui_Dialog_Del_Pokup):
@@ -56,6 +107,33 @@ class WinAddPokup(QDialog, Ui_Dialog_Add_Pokup):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.pushButton.clicked.connect(self.add_data)
+
+    def add_data(self):
+        name = self.lineEdit_2.text()
+        adress = self.lineEdit_3.text()
+        number = self.lineEdit_4.text()
+        adress_dost = self.lineEdit_5.text()
+        date_dost = self.lineEdit_6.text()
+        product = self.lineEdit_7.text()
+
+        if len(name) == 0 or len(adress) == 0 or len(number) == 0 or len(adress_dost) == 0 or len(date_dost) == 0 or len(product) == 0:
+            msg = QMessageBox()
+            msg.setWindowTitle('Внимание')
+            msg.setText('Все поля должны быть заполнены')
+            msg.setIcon(QMessageBox.Warning)
+            msg.exec_()
+            return
+
+        else:
+            cursor.execute(
+                f"INSERT INTO Покупатели (ФИО, Адрес, Номер, Адрес_доставки, Дата_доставки, id_товара) VALUES ('{name}', '{adress}', '{adress_dost}' '{adress}', '{date_dost}', {product})")
+            msg = QMessageBox()
+            msg.setWindowTitle('Внимание')
+            msg.setText('Данные успешно внесены!')
+            msg.exec_()
+            return
+
 
 
 class WinDelPost(QDialog, Ui_Dialog_Del_Post):
@@ -68,6 +146,29 @@ class WinAddPost(QDialog, Ui_Dialog_Add_Post):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.pushButton.clicked.connect(self.add_data)
+
+    def add_data(self):
+        name = self.line_add_FIO.text()
+        num = self.line_add_num.text()
+        adress = self.line_add_adress.text()
+        passport = self.line_add_passport.text()
+
+        if len(name) == 0 or len(num) == 0 or len(adress) == 0 or len(passport) == 0:
+            msg = QMessageBox()
+            msg.setWindowTitle('Внимание')
+            msg.setText('Все поля должны быть заполнены')
+            msg.setIcon(QMessageBox.Warning)
+            msg.exec_()
+            return
+
+        else:
+            cursor.execute(f"INSERT INTO Поставщики (ФИО, Номер, Адрес, Паспорт) VALUES ('{name}', '{num}', '{adress}', '{passport}')")
+            msg = QMessageBox()
+            msg.setWindowTitle('Внимание')
+            msg.setText('Данные успешно внесены!')
+            msg.exec_()
+            return
 
 
 class WindowProduct(QDialog, Ui_Dialog_Product):
@@ -103,6 +204,7 @@ class WindowProduct(QDialog, Ui_Dialog_Product):
             self.tableWidget.setItem(tablerow, 4, QTableWidgetItem(row[4]))
             self.tableWidget.setItem(tablerow, 5, QTableWidgetItem(row[5]))
             tablerow += 1
+
 
 
 class WindowPokup(QDialog, Ui_Dialog_Pokup):

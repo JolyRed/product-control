@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog_Add_Product(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 336)
+        Dialog.resize(400, 378)
         Dialog.setStyleSheet("background-color: rgb(231, 231, 231);")
         self.label_2 = QtWidgets.QLabel(Dialog)
         self.label_2.setGeometry(QtCore.QRect(80, 40, 91, 16))
@@ -52,8 +52,15 @@ class Ui_Dialog_Add_Product(object):
         self.lineEdit_6.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.lineEdit_6.setObjectName("lineEdit_6")
         self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(140, 250, 93, 71))
+        self.pushButton.setGeometry(QtCore.QRect(140, 280, 93, 71))
         self.pushButton.setObjectName("pushButton")
+        self.label_7 = QtWidgets.QLabel(Dialog)
+        self.label_7.setGeometry(QtCore.QRect(80, 240, 71, 16))
+        self.label_7.setObjectName("label_7")
+        self.lineEdit_7 = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_7.setGeometry(QtCore.QRect(130, 240, 113, 22))
+        self.lineEdit_7.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.lineEdit_7.setObjectName("lineEdit_7")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -67,3 +74,4 @@ class Ui_Dialog_Add_Product(object):
         self.label_5.setText(_translate("Dialog", "Склад"))
         self.label_6.setText(_translate("Dialog", "Стоимость"))
         self.pushButton.setText(_translate("Dialog", "Добавить"))
+        self.label_7.setText(_translate("Dialog", "Статус"))
