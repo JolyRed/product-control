@@ -14,8 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog_Add_Post(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(422, 405)
-        Dialog.setMinimumSize(QtCore.QSize(422, 405))
+        Dialog.resize(422, 321)
+        Dialog.setMinimumSize(QtCore.QSize(422, 300))
         Dialog.setMaximumSize(QtCore.QSize(422, 405))
         Dialog.setStyleSheet("background-color: rgb(231, 231, 231);\n"
 "")
@@ -47,15 +47,8 @@ class Ui_Dialog_Add_Post(object):
         self.line_add_passport.setGeometry(QtCore.QRect(140, 170, 191, 22))
         self.line_add_passport.setStyleSheet("background-color: rgb(255, 255, 255);")
         self.line_add_passport.setObjectName("line_add_passport")
-        self.label_6 = QtWidgets.QLabel(Dialog)
-        self.label_6.setGeometry(QtCore.QRect(60, 210, 55, 16))
-        self.label_6.setObjectName("label_6")
-        self.line_add_product = QtWidgets.QLineEdit(Dialog)
-        self.line_add_product.setGeometry(QtCore.QRect(140, 210, 191, 22))
-        self.line_add_product.setStyleSheet("background-color: rgb(255, 255, 255);")
-        self.line_add_product.setObjectName("line_add_product")
         self.pushButton = QtWidgets.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(150, 270, 93, 61))
+        self.pushButton.setGeometry(QtCore.QRect(160, 240, 93, 61))
         self.pushButton.setObjectName("pushButton")
 
         self.retranslateUi(Dialog)
@@ -68,5 +61,4 @@ class Ui_Dialog_Add_Post(object):
         self.label_3.setText(_translate("Dialog", "Номер"))
         self.label_4.setText(_translate("Dialog", "Адрес"))
         self.label_5.setText(_translate("Dialog", "Паспорт"))
-        self.label_6.setText(_translate("Dialog", "Поставка"))
         self.pushButton.setText(_translate("Dialog", "Добавить"))
